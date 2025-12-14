@@ -148,47 +148,6 @@ Write a professional, helpful reply to the customer.
         "recommendation": response.content
     }
 
-# def draft_reply(state: TriageState) -> dict:
-#     """
-#     Draft a customer-facing reply based on the classified issue
-#     and fetched order details.
-#     """
-
-#     ticket_text = state["ticket_text"]
-#     issue_type = state.get("issue_type", "unknown")
-#     order_id = state.get("order_id")
-
-#     prompt = f"""
-# You are a customer support assistant.
-
-# Customer ticket:
-# "{ticket_text}"
-
-# Order ID: {order_id}
-# Issue type: {issue_type}
-
-# Based on the issue type, draft a professional and empathetic reply.
-
-# Guidelines:
-# - Be concise and answer in only about 1 to 2 lines.
-
-# Expected behaviors:
-# - refund_request → mention refund timeline (e.g., 3–5 business days)
-# - late_delivery → reassure and mention delivery status
-# - damaged_item / wrong_item / missing_item → mention replacement or investigation
-# - unknown → state that the issue is being reviewed
-
-# Write only the reply text.
-# """
-
-#     response = llm.invoke(prompt)
-
-#     return {
-#         "messages": [AIMessage(content=response.content)],
-#         "recommendation": response.content
-#     }
-
-
 
 from langgraph.graph import StateGraph, END
 
