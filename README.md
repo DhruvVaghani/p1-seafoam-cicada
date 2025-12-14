@@ -65,3 +65,7 @@ In the terminal 2 Run the curl command in the command prompt (cmd)
 curl -X POST http://127.0.0.1:8000/triage/invoke -H "Content-Type: application/json" -d "{ \"conversation_id\": \"P1-DEMO-004\", \"ticket_text\": \"Wrong item shipped for order ORD1006.\" }"
 
 ```
+
+### Langsmith tracings
+<img width="1257" height="895" alt="image" src="https://github.com/user-attachments/assets/74cd7e10-5fa1-4fd6-842d-a4e277d894b7" />
+
