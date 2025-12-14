@@ -2,7 +2,7 @@
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 import json, os, re
-from triage_agent import build_triage_graph
+from app.triage_agent import build_triage_graph
 
 app = FastAPI(title="Phase 1 Mock API")
 graph = build_triage_graph()
