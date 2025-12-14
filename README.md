@@ -22,28 +22,46 @@ The agent is exposed via a FastAPI endpoint and includes LangSmith tracing for o
 ```bash
 git clone https://github.com/DhruvVaghani/p1-seafoam-cicada.git
 cd p1-seafoam-cicada
-
+```
 ### Create and activate virtual environment
-
-#### Windows (PowerShell):
+```bash
+#### Windows (PowerShell):####
 python -m venv Assess_env
 .\Assess_env\Scripts\Activate
 
-#### macOS / Linux:
+#### macOS / Linux:#####
 python3 -m venv Assess_env
 source Assess_env/bin/activate
-
-#### Install dependencies:
+```
+### Install dependencies:
+```bash
 pip install -r requirements.txt
 
-
-#### Environment variables
+```
+### Environment variables
 Please create your own Open_AI_KEY and LANGCHAIN_API_KEY
 
 Create a .env file in the project root with the following:
+```bash
 OPENAI_API_KEY="sk-xxxxxxxxxxxxxxxx"
 LANGCHAIN_API_KEY="ls-xxxxxxxxxxxxxxxx"
 LANGCHAIN_PROJECT = "triage-agent"
 LANGCHAIN_TRACING_V2 = "true"
-
+```
 Note: .env is ignored by git and is not  committed.
+
+#### Start the app from the repo root folder using this command
+```bash
+uvicorn main:app --reload
+
+```
+### Open a NEW terminal window/tab 
+### Leave uvicorn running in Terminal 1.
+### Open Terminal 2 
+
+In the terminal 2 Run the curl command
+```bash
+curl -X POST http://127.0.0.1:8000/triage/invoke \
+  -H "Content-Type: application/json" \
+  -d '{"ticket_text":"I would like a refund for order ORD1001. The mouse is not working."}'
+```
