@@ -61,7 +61,6 @@ uvicorn main:app --reload
 
 In the terminal 2 Run the curl command
 ```bash
-curl -X POST http://127.0.0.1:8000/triage/invoke \
-  -H "Content-Type: application/json" \
-  -d '{"ticket_text":"I would like a refund for order ORD1001. The mouse is not working."}'
+curl -X POST http://127.0.0.1:8000/triage/invoke -H "Content-Type: application/json" -d "{ \"conversation_id\": \"P1-DEMO-004\", \"ticket_text\": \"Wrong item shipped for order ORD1006.\" }"
+
 ```
