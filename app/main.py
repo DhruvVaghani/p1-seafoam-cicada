@@ -2,8 +2,13 @@
 from fastapi import FastAPI, HTTPException, Query
 from pydantic import BaseModel
 import json, os, re
+from triage_agent import build_triage_graph
 
 app = FastAPI(title="Phase 1 Mock API")
+graph = build_triage_graph()
+
+
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 MOCK_DIR = os.path.join(ROOT, "mock_data")
 
@@ -56,15 +61,24 @@ def reply_draft(payload: dict):
     return {"reply_text": render_reply(payload.get("issue_type"), payload.get("order", {}))}
 
 @app.post("/triage/invoke")
-def triage_invoke(body: TriageInput):
-    text = body.ticket_text
-    order_id = body.order_id
-    if not order_id:
-        m = re.search(r"(ORD\d{4})", text, re.IGNORECASE)
-        if m: order_id = m.group(1).upper()
-    if not order_id: raise HTTPException(status_code=400, detail="order_id missing and not found in text")
-    order = next((o for o in ORDERS if o["order_id"] == order_id), None)
-    if not order: raise HTTPException(status_code=404, detail="order not found")
-    issue = classify_issue({"ticket_text": text})
-    reply = reply_draft({"ticket_text": text, "order": order, "issue_type": issue["issue_type"]})
-    return {"order_id": order_id, "issue_type": issue["issue_type"], "order": order, "reply_text": reply["reply_text"]}
+def triage_invoke(payload: dict):
+    conversation_id = payload.get("conversation_id", "default")
+
+    result = graph.invoke(
+        {
+            "ticket_text": payload["ticket_text"],
+            "messages": []
+        },
+        config={
+            "configurable": {
+                "thread_id": conversation_id
+            }
+        }
+    )
+
+    return {
+        "order_id": result.get("order_id"),
+        "issue_type": result.get("issue_type"),
+        "recommendation": result.get("recommendation")
+    }
+
