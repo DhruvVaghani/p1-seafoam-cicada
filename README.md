@@ -52,7 +52,8 @@ Note: .env is ignored by git and is not  committed.
 
 #### Start the app from the repo root folder using this command
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
+
 
 ```
 ### Open a NEW terminal window/tab 
