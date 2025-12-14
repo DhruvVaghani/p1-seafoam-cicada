@@ -59,7 +59,7 @@ uvicorn main:app --reload
 ### Leave uvicorn running in Terminal 1.
 ### Open Terminal 2 
 
-In the terminal 2 Run the curl command
+In the terminal 2 Run the curl command in the command prompt (cmd)
 ```bash
 curl -X POST http://127.0.0.1:8000/triage/invoke -H "Content-Type: application/json" -d "{ \"conversation_id\": \"P1-DEMO-004\", \"ticket_text\": \"Wrong item shipped for order ORD1006.\" }"
 
